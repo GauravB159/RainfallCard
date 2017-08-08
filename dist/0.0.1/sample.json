@@ -1,0 +1,95 @@
+{
+  "data":{
+    "years":[
+      {
+        "year_no": 2012,
+        "annual": 253,
+        "seasons": [
+          {
+            "season_name":"winter",
+            "rainfall": 24.5
+          },
+          {
+            "season_name":"pre-monsoon",
+            "rainfall": 6.1
+          },
+          {
+            "season_name":"monsoon",
+            "rainfall": 562
+          },
+          {
+            "season_name":"post-monsoon",
+            "rainfall": 0.6
+          }
+        ]
+      },
+      {
+        "year_no": 2013,
+        "annual": 233,
+        "seasons": [
+          {
+            "season_name":"winter",
+            "rainfall": 24
+          },
+          {
+            "season_name":"pre-monsoon",
+            "rainfall": 29
+          },
+          {
+            "season_name":"monsoon",
+            "rainfall": 333
+          },
+          {
+            "season_name":"post-monsoon",
+            "rainfall": 53
+          }
+        ]
+      },
+      {
+        "year_no": 2014,
+        "annual":213,
+        "seasons": [
+          {
+            "season_name":"winter",
+            "rainfall": 13
+          },
+          {
+            "season_name":"pre-monsoon",
+            "rainfall": 33
+          },
+          {
+            "season_name":"monsoon",
+            "rainfall": 223
+          },
+          {
+            "season_name":"post-monsoon",
+            "rainfall": 13
+          }
+        ]
+      },
+      {
+        "year_no": 2015,
+        "annual": 197,
+        "seasons": [
+          {
+            "season_name":"winter",
+            "rainfall": 13
+          },
+          {
+            "season_name":"pre-monsoon",
+            "rainfall": 43
+          },
+          {
+            "season_name":"monsoon",
+            "rainfall": 410
+          },
+          {
+            "season_name":"post-monsoon",
+            "rainfall": 10
+          }
+        ]
+      }
+    ]
+  },
+  "mandatory_configs":{}
+}
