@@ -1,5 +1,5 @@
 .protograph-card{
-	border:1px solid black;
+	border:1px solid #DDD;
 	border-radius: 1%;
 	height:420px;
 	overflow: hidden;
@@ -10,6 +10,12 @@
     justify-content: center; 
 	font-size:14px;
 	color:#666;
+	overflow-x:auto;
+}
+.protograph-svg{
+	position:absolute;
+	bottom:-14px;
+	left:-12px;
 }
 .protograph-place{
 	margin-left:15px;
@@ -17,9 +23,14 @@
 	font-size: 12px;
 	color:#999;
 }
+.protograph-site{
+	margin-top:-3px;
+	font-size: 9px;
+	color:#999;
+}
 .protograph-header-cloud{
-	width:39px;
-	height:30px;
+	width:26px;
+	height:20px;
 	margin-right: 10px;
 	margin-top: 10px;
 	float:right;
@@ -62,10 +73,11 @@
 	width:30px;
 	height:130px;
 	margin-top:25px;
-	margin-left: 16px;
+	margin-left: 24px;
 	position:relative;
 	top:0;
-	border: 1px solid black;
+	background-color: rgba(219,219,220,0.5);
+	z-index: -3;
 }
 .hide-content{
 	display: none;
@@ -86,7 +98,7 @@
 	font-size: 12px;
 	top:20px;
 	color:black;
-	margin-right:12px;
+	margin-right:-2px;
 	position: relative;
 }
 .protograph-season{
@@ -96,11 +108,14 @@
 	margin-left: -28px;
 	width:85px;
 	color:#666;
-	margin-top: 15px;
+	margin-top: 30px;
+	position: absolute;
+	top:109px;
 }
 
 .protograph-annual-header{
 	font-size: 14px;
+	color:#999;
 	margin:5px 10px;
 }
 .protograph-annual-value{
@@ -116,9 +131,11 @@
 .protograph-ticks{
 	margin-top: 17px;
 	z-index: 20;
+	position: absolute;
+	top:0;
 }
 hr{
-	margin-top:-6.4px;
+	margin-top:-6.7px;
 	margin-left: 0;
 	position:relative;
 	border-color:rgba(250,250,250,0.7);
@@ -129,6 +146,15 @@ hr{
 	background-color: red;
 	margin-left:11px;
 	display:inline-block;
+}
+.protograph-bottle-average{
+	width:15px;
+	height:2px;
+	position:absolute;
+	left:0;
+	background-color: red;
+	margin-left:0px;
+	z-index:20;
 }
 .protograph-average-text{
 	display:inline-block;

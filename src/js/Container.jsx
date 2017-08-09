@@ -92,7 +92,7 @@ export default class ExplainerCard extends React.Component {
       let values = this.state.currData.seasons;
       let tab_width=(300)/years.length + "px";
       let ticks=[];
-      for(let i=0;i <= 40;i++){
+      for(let i=0;i <= 48;i++){
         if(i%8===0){
           ticks.push(9)
         }else if(i%4===0){
@@ -119,7 +119,6 @@ export default class ExplainerCard extends React.Component {
       let maxRange = 115;
       let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
       heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
-      console.log(heights);
       return (
         <div id="protograph-div" style={styles}>
           <div className="protograph-card" style={styles}>
@@ -170,10 +169,13 @@ export default class ExplainerCard extends React.Component {
                             })
                           }
                         </div>
+                        <div className="protograph-bottle-average" style={{bottom:heights[index]+8}}/>
                         <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
-                        <svg width="40" height="20">
-                          <path d="M2 2  H 30 L 31 5 H 1 Z" fill="transparent" style={{stroke:"black",strokeWidth:2}}/>
-                        </svg>
+                        <div className="protograph-svg">
+                          <svg width="50px" height="10px">
+                            <path d="M12 0 L8 5 H 44 L41 0" fill="transparent" style={{fill:'#4A90E2'}}/>
+                          </svg>
+                        </div>
                         <div className="protograph-season">
                           { value.season_name}
                         </div>
@@ -182,6 +184,10 @@ export default class ExplainerCard extends React.Component {
                   );                  
                 })
               }
+            </div>
+            <div style={{marginLeft:"9px",position:"relative",bottom:"-200px"}}>
+              <hr style={{width:"280px",marginBottom:"0",opacity:"0.2"}}/>
+              <div className="protograph-site">www.jagran.com</div>
             </div>
           </div>
         </div>
@@ -195,16 +201,112 @@ export default class ExplainerCard extends React.Component {
     } else {
       const data = this.state.dataJSON.card_data;
       let styles = {
-        width : "300px"
+        width : "100%"
       }
+      let years=[];
+      data.data.years.forEach((datum)=>{
+        years.push(datum.year_no);
+      });
+      let values = this.state.currData.seasons;
+      let tab_width=(300)/years.length + "px";
+      let ticks=[];
+      for(let i=0;i <= 48;i++){
+        if(i%8===0){
+          ticks.push(8)
+        }else if(i%4===0){
+          ticks.push(4)
+        }else{
+          ticks.push(2);
+        }
+      }
+      let minDomain = 0;
+      let maxDomain = values[0].rainfall;
+      let heights=[];
+      data.data.years.forEach((datum)=>{
+        datum.seasons.forEach((value)=>{
+          if(value.rainfall > maxDomain)
+            maxDomain = value.rainfall;
+          if(value.rainfall < minDomain)
+            minDomain = value.rainfall;
+        });
+      });
+      values.forEach((value)=>{
+        heights.push(value.rainfall);
+      })
+      let minRange = 2;
+      let maxRange = 115;
+      let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
+      heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
+      console.log(heights);
       return (
         <div id="protograph-div" style={styles}>
-          <div className="protograph-card">
-            {(data.data.hasOwnProperty('tag') && data.data.tag !== "undefined" && data.data.tag !== '' ) ? <p className="protograph-tag">#{data.data.tag}</p>: ''}
-            <h3 className="ui header" style={{marginBottom: '15px'}}>{data.data.explainer_header}</h3>
-            <p className="protograph-explainer-text">{data.data.explainer_text}</p>
-            <div className="protograph-footer">
-              <div className="protograph-credits"><a className="protograph-card-link" href="https://protograph.pykih.com/card/toexplain" target="_blank">toExplain</a></div>
+          <div className="protograph-card" style={styles}>
+            <div className="protograph-cloud-wrapper">
+              <img className="protograph-header-cloud" src="src/img/cloud-icon.png"/>
+            </div>
+            <div className="protograph-place">Agra</div>
+            <h3 className="ui header" style={{margin:'15px',marginTop:'0',marginBottom:'10px'}}>Rainfall</h3>
+            <div className="protograph-tabs" style={{width:"100%"}}>
+            {
+              years.map((year,index)=>{
+                return (
+                  <div className="protograph-tab-container" id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:100/years.length + "%"}}>
+                    <div className="protograph-tab">
+                      {year}
+                    </div>
+                  </div>
+                )
+              })
+            }
+            </div>
+            <img className="protograph-body-cloud" src="src/img/cloud-icon.png"/>
+            <div className="protograph-annual" style={{width:"100%"}}>
+              <div className="protograph-annual-header">Annual Rainfall</div>
+              <h2 className="protograph-annual-value">{this.state.currData.annual} mm</h2>
+            </div>
+            <div className="protograph-average">
+              <div className="protograph-average-line"/>
+              <div className="protograph-average-text">
+                Average line
+              </div>
+            </div>
+            <div className="protograph-values" style={{width:"100%"}}>
+              {
+                values.map((value,index)=>{
+                  return(
+                    <div className="protograph-value" style={{left:25*index+"%"}}>
+                      <div className="protograph-rainfall">
+                        { value.rainfall + " mm"}
+                      </div>
+                      <div className="protograph-bottle" style={index%2 === 0 ? { top:"-19px",marginTop:"44px"} : {}}>
+                        <div className="protograph-ticks">
+                          {
+                            ticks.map((length,index)=>{
+                              return (
+                                <hr style={{width:length}}/>
+                              );
+                            })
+                          }
+                        </div>
+                        <div className="protograph-bottle-average" style={{bottom:heights[index]+8}}/>
+                        <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
+                        <div className="protograph-svg">
+                          <svg width="50px" height="10px">
+                            <path d="M12 0 L8 5 H 44 L41 0" fill="transparent" style={{fill:'#4A90E2'}}/>
+                          </svg>
+                        </div>
+                        <div className="protograph-season">
+                          { value.season_name}
+                        </div>
+                      </div>
+                    </div>
+                  );                  
+                })
+              }
+            </div>
+            <div style={{marginLeft:"2%",position:"relative",bottom:"-200px"}}>
+              <hr style={{width:"97%",marginBottom:"0",opacity:"0.2"}}/>
+              <div className="protograph-site">www.jagran.com</div>
             </div>
           </div>
         </div>
