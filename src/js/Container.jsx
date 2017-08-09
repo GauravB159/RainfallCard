@@ -92,7 +92,7 @@ export default class ExplainerCard extends React.Component {
       let values = this.state.currData.seasons;
       let tab_width=(300)/years.length + "px";
       let ticks=[];
-      for(let i=0;i <= 48;i++){
+      for(let i=0;i <= 40;i++){
         if(i%8===0){
           ticks.push(9)
         }else if(i%4===0){
@@ -116,14 +116,18 @@ export default class ExplainerCard extends React.Component {
         heights.push(value.rainfall);
       })
       let minRange = 2;
-      let maxRange = 145;
+      let maxRange = 115;
       let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
       heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
       console.log(heights);
       return (
         <div id="protograph-div" style={styles}>
-          <div className="protograph-card">
-            <h2 className="ui header" style={{margin:'15px',marginBottom:'0'}}>Rainfall</h2>
+          <div className="protograph-card" style={styles}>
+            <div className="protograph-cloud-wrapper">
+              <img className="protograph-header-cloud" src="src/img/cloud-icon.png"/>
+            </div>
+            <div className="protograph-place">Agra</div>
+            <h3 className="ui header" style={{margin:'15px',marginTop:'0',marginBottom:'10px'}}>Rainfall</h3>
             <div className="protograph-tabs">
             {
               years.map((year,index)=>{
@@ -137,9 +141,10 @@ export default class ExplainerCard extends React.Component {
               })
             }
             </div>
+            <img className="protograph-body-cloud" src="src/img/cloud-icon.png"/>
             <div className="protograph-annual" style={{width:"300px"}}>
               <div className="protograph-annual-header">Annual Rainfall</div>
-              <div className="protograph-annual-value">{this.state.currData.annual}mm</div>
+              <h2 className="protograph-annual-value">{this.state.currData.annual} mm</h2>
             </div>
             <div className="protograph-average">
               <div className="protograph-average-line"/>
@@ -151,11 +156,11 @@ export default class ExplainerCard extends React.Component {
               {
                 values.map((value,index)=>{
                   return(
-                    <div className="protograph-value">
+                    <div className="protograph-value" style={{left:75*index}}>
                       <div className="protograph-rainfall">
-                        { value.rainfall + "mm"}
+                        { value.rainfall + " mm"}
                       </div>
-                      <div className="protograph-bottle">
+                      <div className="protograph-bottle" style={index%2 === 0 ? { top:"-19px",marginTop:"44px"} : {}}>
                         <div className="protograph-ticks">
                           {
                             ticks.map((length,index)=>{
@@ -165,7 +170,10 @@ export default class ExplainerCard extends React.Component {
                             })
                           }
                         </div>
-                        <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",marginTop:heights[index] > 7 ? 7-heights[index] : 14-heights[index]}}/>
+                        <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
+                        <svg width="40" height="20">
+                          <path d="M2 2  H 30 L 31 5 H 1 Z" fill="transparent" style={{stroke:"black",strokeWidth:2}}/>
+                        </svg>
                         <div className="protograph-season">
                           { value.season_name}
                         </div>

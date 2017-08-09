@@ -1,17 +1,57 @@
 .protograph-card{
 	border:1px solid black;
-	border-radius: 2%;
+	border-radius: 1%;
 	height:420px;
+	overflow: hidden;
 }
 .protograph-tabs{
 	display:flex;
 	align-items: center;
     justify-content: center; 
-	font-size:18px;
+	font-size:14px;
+	color:#666;
+}
+.protograph-place{
+	margin-left:15px;
+	margin-top:3px;
+	font-size: 12px;
+	color:#999;
+}
+.protograph-header-cloud{
+	width:39px;
+	height:30px;
+	margin-right: 10px;
+	margin-top: 10px;
+	float:right;
+	display:inline-block;
+	image-rendering: optimizeSpeed;             
+    image-rendering: -moz-crisp-edges;          
+    image-rendering: -o-crisp-edges;            
+    image-rendering: -webkit-optimize-contrast; 
+    image-rendering: optimize-contrast;    
+    -ms-interpolation-mode: nearest-neighbor;
+}
+.protograph-body-cloud{
+	width:130px;
+	height:100px;
+	margin-right: 10px;
+	margin-top: 10px;
+	float:right;
+	display:inline-block;
+	opacity: 0.05;
+	overflow: hidden;
+	margin-right:-16px;
+	image-rendering: optimizeSpeed;             
+    image-rendering: -moz-crisp-edges;          
+    image-rendering: -o-crisp-edges;            
+    image-rendering: -webkit-optimize-contrast; 
+    image-rendering: optimize-contrast;    
+    -ms-interpolation-mode: nearest-neighbor;
 }
 .protograph-value{
 	width:75px;
 	height:210px;
+	position:absolute;
 	display:inline-block;
 }
 #protograph_color{
@@ -20,56 +60,65 @@
 }
 .protograph-bottle{
 	width:30px;
-	height:160px;
+	height:130px;
 	margin-top:25px;
-	margin-left: 21px;
+	margin-left: 16px;
+	position:relative;
+	top:0;
 	border: 1px solid black;
 }
 .hide-content{
-  display: none;
+	display: none;
 }
 .protograph-tab{
 	text-align: center;
 	margin: 8px;
 }
+.protograph-tab-container{
+	border:1px solid #F8F8F8;
+}
 .protograph-tab-container:hover{
-	background-color: #4A90E2;
-	color:white;
+	color:black;
 	cursor:pointer;
 }
 .protograph-rainfall{
 	text-align: center;
 	font-size: 12px;
 	top:20px;
+	color:black;
+	margin-right:12px;
 	position: relative;
 }
 .protograph-season{
 	text-align: center;
-	font-size: 15px;
+	font-size: 12px;
 	height:37.78px;
-	width:85px;
 	margin-left: -28px;
+	width:85px;
+	color:#666;
+	margin-top: 15px;
 }
-
 
 .protograph-annual-header{
 	font-size: 14px;
-	margin:10px;
+	margin:5px 10px;
 }
 .protograph-annual-value{
-	font-size: 24px;
-	font-weight: bold;
-	margin:10px;
+	margin:0;
+	margin-left:10px;
+}
+.protograph-values{
+	position:relative;
 }
 .protograph-average{
-	margin-top: 15px;
+	margin-top: 18px;
 }
 .protograph-ticks{
 	margin-top: 17px;
 	z-index: 20;
 }
 hr{
-	margin-top:-6.5px;
+	margin-top:-6.4px;
 	margin-left: 0;
 	position:relative;
 	border-color:rgba(250,250,250,0.7);
@@ -85,11 +134,16 @@ hr{
 	display:inline-block;
 	position: relative;
 	left:8px;
+	font-size: 12px;
+	color:#999;
 	top:2px;
 }
 .protograph-water{
 	z-index: -1;
-	position: relative;
+	bottom: 0;
+	left: 0;
+	width:29px;
+	background-color: red;
 }
 #ProtoScreenshot {
   width: 450px;
