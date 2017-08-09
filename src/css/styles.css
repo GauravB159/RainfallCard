@@ -45,7 +45,7 @@
 }
 .protograph-season{
 	text-align: center;
-	font-size: 11px;
+	font-size: 15px;
 	height:37.78px;
 	width:85px;
 	margin-left: -28px;
@@ -89,6 +89,7 @@ hr{
 }
 .protograph-water{
 	z-index: -1;
+	position: relative;
 }
 #ProtoScreenshot {
   width: 450px;

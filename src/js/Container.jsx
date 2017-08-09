@@ -119,6 +119,7 @@ export default class ExplainerCard extends React.Component {
       let maxRange = 145;
       let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
       heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
+      console.log(heights);
       return (
         <div id="protograph-div" style={styles}>
           <div className="protograph-card">
