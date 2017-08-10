@@ -173,12 +173,12 @@ export default class RainfallCard extends React.Component {
                               })
                             }
                           </div>
-                          <img src="../../src/img/small-waves.svg" style={{bottom:heights[index],position:"absolute",width:"29px"}}/>
                           <div className="protograph-bottle-average" style={{bottom:heights[index]+8}}/>
+                          <img src="../../src/img/small-waves.svg" style={{bottom:heights[index],position:"absolute"}}/>
                           <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
                           <div className="protograph-svg">
                             <svg width="50px" height="10px">
-                              <path d="M12 0 L8 5 H 44 L41 0" fill="transparent" style={{fill:'#4A90E2'}}/>
+                              <path d="M12 0 L8 5 H 44 L40 0" fill="transparent" style={{fill:'#4A90E2'}}/>
                             </svg>
                           </div>
                           <div className="protograph-season">
@@ -297,14 +297,14 @@ export default class RainfallCard extends React.Component {
                             })
                           }
                         </div>
-                        <div style={{bottom:heights[index]-1,position:"absolute",width:"30px",height:"15px"}}>
+                        <div style={{bottom:heights[index]-1,position:"absolute",width:"28px",height:"15px"}}>
                           <img src="../../src/img/small-waves.svg" style={{width:"100%"}}/> 
                         </div>                       
                         <div className="protograph-bottle-average" style={{bottom:heights[index]+8}}/>
                         <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
                         <div className="protograph-svg">
                           <svg width="50px" height="10px">
-                            <path d="M12 0 L8 5 H 46 L42 0" fill="transparent" style={{marginTop:"-1px",fill:'#4A90E2'}}/>
+                            <path d="M12 0 L8 5 H 44 L40 0" fill="transparent" style={{marginTop:"-1px",fill:'#4A90E2'}}/>
                           </svg>
                         </div>
                         <div className="protograph-season">

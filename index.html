@@ -8,12 +8,12 @@
     <link rel="stylesheet" type="text/css" href="src/css/styles.css">
   </head>
   <body>
-    <div id="explainer-div"></div>
+    <div id="rainfall-div"></div>
     <script src = "dist/0.0.1/card.min.js"></script>
     <script type="text/javascript">
-    var x = new ProtoGraph.Card.toExplain();
+    var x = new ProtoGraph.Card.toRainfall();
     x.init({
-      selector: document.querySelector('#explainer-div'),
+      selector: document.querySelector('#rainfall-div'),
       // data_url: "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/sample.json",
       data_url: "dist/0.0.1/sample.json",
       schema_url: "https://s3.ap-south-1.amazonaws.com/dev.cdn.protograph/2e804dc00b362f24/schema.json",
