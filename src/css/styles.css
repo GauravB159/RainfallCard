@@ -1,8 +1,14 @@
+body{
+	margin:0 !important;
+}
 .protograph-card{
 	border:1px solid #DDD;
 	border-radius: 1%;
 	height:420px;
 	overflow: hidden;
+	position: relative;
+	margin-left: 2%;
+	margin-top:2%;
 }
 .protograph-tabs{
 	display:flex;
@@ -18,7 +24,7 @@
 	left:-12px;
 }
 .protograph-place{
-	margin-left:15px;
+	margin-left:10px;
 	margin-top:3px;
 	font-size: 12px;
 	color:#999;
@@ -27,6 +33,7 @@
 	margin-top:-3px;
 	font-size: 9px;
 	color:#999;
+	margin-left: 2%;
 }
 .protograph-header-cloud{
 	width:26px;
@@ -43,6 +50,24 @@
     -ms-interpolation-mode: nearest-neighbor;
 }
 .protograph-body-cloud{
+	width:130px;
+	height:100px;
+	margin-right: 10px;
+	margin-top: 10px;
+	display:inline-block;
+	opacity: 0.05;
+	position: absolute;
+	left:100px;
+	overflow: hidden;
+	margin-right:-16px;
+	image-rendering: optimizeSpeed;             
+    image-rendering: -moz-crisp-edges;          
+    image-rendering: -o-crisp-edges;            
+    image-rendering: -webkit-optimize-contrast; 
+    image-rendering: optimize-contrast;    
+    -ms-interpolation-mode: nearest-neighbor;
+}
+.protograph-body-mobile-cloud{
 	width:130px;
 	height:100px;
 	margin-right: 10px;
@@ -89,6 +114,12 @@
 .protograph-tab-container{
 	border:1px solid #F8F8F8;
 }
+.protograph-tab-cont{
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+}
+.protograph-tab-cont::-webkit-scrollbar { 
+    display: none; 
+}
 .protograph-tab-container:hover{
 	color:black;
 	cursor:pointer;
@@ -116,17 +147,30 @@
 .protograph-annual-header{
 	font-size: 14px;
 	color:#999;
-	margin:5px 10px;
+	margin:5px 0 0 10px;
+}
+.protograph-annual-average{
+	margin:0;
+	margin-left: 10px;
 }
 .protograph-annual-value{
 	margin:0;
 	margin-left:10px;
+	font-size:14px;
+	color:black;
+	font-weight: bold;
 }
 .protograph-values{
 	position:relative;
 }
+.protograph-right{
+	float:right;
+	margin-top: -80px;
+	margin-right:5px;
+}
 .protograph-average{
 	margin-top: 18px;
+	margin-bottom: -13px;
 }
 .protograph-ticks{
 	margin-top: 17px;
@@ -168,7 +212,7 @@ hr{
 	z-index: -1;
 	bottom: 0;
 	left: 0;
-	width:29px;
+	width:30px;
 	background-color: red;
 }
 #ProtoScreenshot {
