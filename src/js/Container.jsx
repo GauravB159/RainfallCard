@@ -75,7 +75,8 @@ export default class RainfallCard extends React.Component {
       currIndex:index
     });
   }
-  componentWillUpdate(){
+  componentWillReceiveProps(){
+    console.log("Hello");
     this.state.currData = this.state.dataJSON.card_data.data.years[this.state.currIndex];
   }
 
