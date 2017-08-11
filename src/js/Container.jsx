@@ -14,11 +14,14 @@ export default class RainfallCard extends React.Component {
       },
       schemaJSON: undefined,
       optionalConfigJSON: {},
-      optionalConfigSchemaJSON: undefined
+      optionalConfigSchemaJSON: undefined,
+      currData:{},
+      currIndex:0
     };
     if (this.props.dataJSON) {
       stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
+      stateVar.currData = this.props.dataJSON.card_data.data.years[0];
     }
 
     if (this.props.schemaJSON) {
@@ -57,16 +60,10 @@ export default class RainfallCard extends React.Component {
             optionalConfigSchemaJSON: opt_config_schema.data
           });
         }));
-    } else {
-      this.componentDidUpdate();
-    }
+    } 
   }
 
-  componentDidUpdate() {
-    if (this.props.mode === 'mobile' || this.props.mode === 'laptop'){
-      let elem = document.querySelector('.protograph-explainer-text')
-    }
-  }
+
   handleClick(index){
     let data=this.state.dataJSON.card_data.data.years;
     let tab=document.getElementsByClassName("protograph-tab-container")[index];
@@ -74,9 +71,14 @@ export default class RainfallCard extends React.Component {
     activeTab.removeAttribute("id");
     tab.id="protograph_color";
     this.setState({
-      currData:data[index]
+      currData:data[index],
+      currIndex:index
     });
   }
+  componentWillUpdate(){
+    this.state.currData = this.state.dataJSON.card_data.data.years[this.state.currIndex];
+  }
+
   renderLaptop() {
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
@@ -87,8 +89,9 @@ export default class RainfallCard extends React.Component {
       }
       let years=[];
       data.data.years.forEach((datum)=>{
-        years.push(datum.year_no);
+        years.push(datum.year);
       });
+
       let values = this.state.currData.seasons;
       let tab_width=(300)/years.length + "px";
       let ticks=[];
@@ -106,16 +109,22 @@ export default class RainfallCard extends React.Component {
       let heights=[];
       data.data.years.forEach((datum)=>{
         datum.seasons.forEach((value)=>{
+          if(value === undefined)
+            return
           if(value.rainfall > maxDomain)
             maxDomain = value.rainfall;
+          if(value.average_rainfall > maxDomain)
+            maxDomain = value.average_rainfall
           if(value.rainfall < minDomain)
             minDomain = value.rainfall;
+          if(value.average_rainfall < minDomain)
+            minDomain = value.average_rainfall
         });
       });
       values.forEach((value)=>{
         heights.push(value.rainfall);
       })
-      let minRange = 2;
+      let minRange = 6;
       let maxRange = 115;
       let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
       heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
@@ -125,14 +134,14 @@ export default class RainfallCard extends React.Component {
             <div className="protograph-cloud-wrapper">
               <img className="protograph-header-cloud" src="../../src/img/cloud-icon.png"/>
             </div>
-            <div className="protograph-place">Agra</div>
+            <div className="protograph-place">{data.data.district}</div>
             <h3 className="ui header" style={{margin:'10px',marginTop:'0'}}>Rainfall</h3>
             <div className="protograph-tab-cont" style={{width:"640px",overflowX:"auto"}}>
               <div className="protograph-tabs" style={{width:"640px",overflowX:"hidden"}}>
               {
                 years.map((year,index)=>{
                   return (
-                    <div className="protograph-tab-container" id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:100/years.length+"%"}}>
+                    <div className="protograph-tab-container" key={index} id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:100/years.length+"%"}}>
                       <div className="protograph-tab">
                         {year}
                       </div>
@@ -145,7 +154,7 @@ export default class RainfallCard extends React.Component {
             <img className="protograph-body-cloud" src="../../src/img/cloud-icon.png"/>
             <div className="protograph-annual" style={{width:"320px"}}>
               <div className="protograph-annual-header">Annual Rainfall</div>
-              <h2 className="protograph-annual-average">Average</h2>
+              <h2 className="protograph-annual-average">{this.state.currData.annual_type}</h2>
               <div className="protograph-annual-value">{this.state.currData.annual} mm</div>
             </div>
             <div className="protograph-right">
@@ -158,8 +167,9 @@ export default class RainfallCard extends React.Component {
               <div className="protograph-values" style={{width:"300px",height:"50%"}}>
                 {
                   values.map((value,index)=>{
+                    let averageh = minRange + multiplier * (value.average_rainfall - minDomain);
                     return(
-                      <div className="protograph-value" style={{left:75*index - 6 +"px"}}>
+                      <div className="protograph-value" key={index} style={{left:(300/values.length)*index - 6 +"px"}}>
                         <div className="protograph-rainfall">
                           { value.rainfall + " mm"}
                         </div>
@@ -168,12 +178,12 @@ export default class RainfallCard extends React.Component {
                             {
                               ticks.map((length,index)=>{
                                 return (
-                                  <hr style={{width:length}}/>
+                                  <hr key={index} style={{width:length}}/>
                                 );
                               })
                             }
                           </div>
-                          <div className="protograph-bottle-average" style={{bottom:heights[index]+8}}/>
+                          <div className="protograph-bottle-average" style={{bottom:averageh}}/>
                           <img src="../../src/img/small-waves.svg" style={{bottom:heights[index],position:"absolute"}}/>
                           <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
                           <div className="protograph-svg">
@@ -182,7 +192,7 @@ export default class RainfallCard extends React.Component {
                             </svg>
                           </div>
                           <div className="protograph-season">
-                            { value.season_name}
+                            { value.season}
                           </div>
                         </div>
                       </div>
@@ -212,7 +222,7 @@ export default class RainfallCard extends React.Component {
       }
       let years=[];
       data.data.years.forEach((datum)=>{
-        years.push(datum.year_no);
+        years.push(datum.year);
       });
       let values = this.state.currData.seasons;
       let tab_width=(300)/years.length + "px";
@@ -233,14 +243,18 @@ export default class RainfallCard extends React.Component {
         datum.seasons.forEach((value)=>{
           if(value.rainfall > maxDomain)
             maxDomain = value.rainfall;
+          if(value.average_rainfall > maxDomain)
+            maxDomain = value.average_rainfall
           if(value.rainfall < minDomain)
             minDomain = value.rainfall;
+          if(value.average_rainfall < minDomain)
+            minDomain = value.average_rainfall
         });
       });
       values.forEach((value)=>{
         heights.push(value.rainfall);
       })
-      let minRange = 2;
+      let minRange = 6;
       let maxRange = 115;
       let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
       heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
@@ -250,14 +264,14 @@ export default class RainfallCard extends React.Component {
             <div className="protograph-cloud-wrapper">
               <img className="protograph-header-cloud" src="../../src/img/cloud-icon.png"/>
             </div>
-            <div className="protograph-place">Agra</div>
+            <div className="protograph-place">{data.data.district}</div>
             <h3 className="ui header" style={{margin:'10px',marginTop:'0'}}>Rainfall</h3>
             <div className="protograph-tab-cont" style={{width:"100%",overflowX:"auto"}}>
               <div className="protograph-tabs" style={{width:"400px",overflowX:"hidden"}}>
               {
                 years.map((year,index)=>{
                   return (
-                    <div className="protograph-tab-container" id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:"80px"}}>
+                    <div className="protograph-tab-container" key={index} id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:"80px"}}>
                       <div className="protograph-tab">
                         {year}
                       </div>
@@ -270,7 +284,7 @@ export default class RainfallCard extends React.Component {
             <img className="protograph-body-mobile-cloud" src="../../src/img/cloud-icon.png"/>
             <div className="protograph-annual" style={{width:"100%"}}>
               <div className="protograph-annual-header">Annual Rainfall</div>
-              <h2 className="protograph-annual-average">Average</h2>
+              <h2 className="protograph-annual-average">{this.state.currData.annual_type}</h2>
               <div className="protograph-annual-value">{this.state.currData.annual} mm</div>
             </div>
             <div className="protograph-average">
@@ -282,8 +296,9 @@ export default class RainfallCard extends React.Component {
             <div className="protograph-values" style={{width:"100%"}}>
               {
                 values.map((value,index)=>{
+                  let averageh = minRange + multiplier * (value.average_rainfall - minDomain)
                   return(
-                    <div className="protograph-value" style={{left:25*index - 1 +"%"}}>
+                    <div className="protograph-value" key={index} style={{left:(100/values.length)*index - 1 +"%"}}>
                       <div className="protograph-rainfall">
                         { value.rainfall + " mm"}
                       </div>
@@ -292,7 +307,7 @@ export default class RainfallCard extends React.Component {
                           {
                             ticks.map((length,index)=>{
                               return (
-                                <hr style={{width:length}}/>
+                                <hr style={{width:length}} key={index}/>
                               );
                             })
                           }
@@ -300,7 +315,7 @@ export default class RainfallCard extends React.Component {
                         <div style={{bottom:heights[index]-1,position:"absolute",width:"28px",height:"15px"}}>
                           <img src="../../src/img/small-waves.svg" style={{width:"100%"}}/> 
                         </div>                       
-                        <div className="protograph-bottle-average" style={{bottom:heights[index]+8}}/>
+                        <div className="protograph-bottle-average" style={{bottom:averageh}}/>
                         <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
                         <div className="protograph-svg">
                           <svg width="50px" height="10px">
@@ -308,7 +323,7 @@ export default class RainfallCard extends React.Component {
                           </svg>
                         </div>
                         <div className="protograph-season">
-                          { value.season_name}
+                          { value.season}
                         </div>
                       </div>
                     </div>

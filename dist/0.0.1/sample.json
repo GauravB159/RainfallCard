@@ -1,117 +1,142 @@
 {
-  "data":{
-    "years":[
+  "data": {
+    "district": "Agra",
+    "years": [
       {
-        "year_no": 2012,
-        "annual": 253,
+        "year": "2012",
         "seasons": [
           {
-            "season_name":"Winter",
-            "rainfall": 24.5
+            "season": "Winter",
+            "rainfall": 24.5,
+            "average_rainfall": 27.5
           },
           {
-            "season_name":"Pre Monsoon",
-            "rainfall": 6.1
+            "season": "Pre Monsoon",
+            "rainfall": 6.1,
+            "average_rainfall": 22.6
           },
           {
-            "season_name":"Monsoon",
-            "rainfall": 562
+            "season": "Monsoon",
+            "rainfall": 562,
+            "average_rainfall": 685.4
           },
           {
-            "season_name":"Post Monsoon",
-            "rainfall": 0.6
+            "season": "Post Monsoon",
+            "rainfall": 0.6,
+            "average_rainfall": 30
           }
-        ]
+        ],
+        "annual": 770.4,
+        "annual_type": "Average"
       },
       {
-        "year_no": 2013,
+        "year": "2013",
+        "seasons": [
+          {
+            "season": "Winter",
+            "rainfall": 37.8,
+            "average_rainfall": 27.5
+          },
+          {
+            "season": "Pre Monsoon",
+            "rainfall": 6,
+            "average_rainfall": 22.6
+          },
+          {
+            "season": "Monsoon",
+            "rainfall": 578.8,
+            "average_rainfall": 685.4
+          },
+          {
+            "season": "Post Monsoon",
+            "rainfall": 88.4,
+            "average_rainfall": 30
+          }
+        ],
         "annual": 711,
-        "seasons": [
-          {
-            "season_name":"Winter",
-            "rainfall": 37.8
-          },
-          {
-            "season_name":"Pre Monsoon",
-            "rainfall": 6
-          },
-          {
-            "season_name":"Monsoon",
-            "rainfall": 578.8
-          },
-          {
-            "season_name":"Post Monsoon",
-            "rainfall": 88.4
-          }
-        ]
+        "annual_type": "Average"
       },
       {
-        "year_no": 2014,
-        "annual":362.9,
+        "year": "2014",
         "seasons": [
           {
-            "season_name":"Winter",
-            "rainfall": 64.1
+            "season": "Winter",
+            "rainfall": 64.1,
+            "average_rainfall": 27.5
           },
           {
-            "season_name":"Pre Monsoon",
-            "rainfall": 25.1
+            "season": "Pre Monsoon",
+            "rainfall": 25.1,
+            "average_rainfall": 22.6
           },
           {
-            "season_name":"Monsoon",
-            "rainfall": 257.1
+            "season": "Monsoon",
+            "rainfall": 257.1,
+            "average_rainfall": 685.4
           },
           {
-            "season_name":"Post Monsoon",
-            "rainfall": 16.6
+            "season": "Post Monsoon",
+            "rainfall": 16.6,
+            "average_rainfall": 30
           }
-        ]
+        ],
+        "annual": 362.9,
+        "annual_type": "Average"
       },
       {
-        "year_no": 2015,
+        "year": "2015",
+        "seasons": [
+          {
+            "season": "Winter",
+            "rainfall": 32.5,
+            "average_rainfall": 27.5
+          },
+          {
+            "season": "Pre Monsoon",
+            "rainfall": 110.8,
+            "average_rainfall": 22.6
+          },
+          {
+            "season": "Monsoon",
+            "rainfall": 213.2,
+            "average_rainfall": 685.4
+          },
+          {
+            "season": "Post Monsoon",
+            "rainfall": 16.8,
+            "average_rainfall": 30
+          }
+        ],
         "annual": 373.3,
-        "seasons": [
-          {
-            "season_name":"Winter",
-            "rainfall": 32.5
-          },
-          {
-            "season_name":"Pre Monsoon",
-            "rainfall": 110.8
-          },
-          {
-            "season_name":"Monsoon",
-            "rainfall": 213.2
-          },
-          {
-            "season_name":"Post Monsoon",
-            "rainfall": 16.8
-          }
-        ]
+        "annual_type": "Average"
       },
       {
-        "year_no": 2016,
-        "annual": 622.1,
+        "year": "2016",
         "seasons": [
           {
-            "season_name":"Winter",
-            "rainfall": 0.3
+            "season": "Winter",
+            "rainfall": 0.3,
+            "average_rainfall": 27.5
           },
           {
-            "season_name":"Pre Monsoon",
-            "rainfall": 22.5
+            "season": "Pre Monsoon",
+            "rainfall": 22.5,
+            "average_rainfall": 22.6
           },
           {
-            "season_name":"Monsoon",
-            "rainfall": 592.6
+            "season": "Monsoon",
+            "rainfall": 592.6,
+            "average_rainfall": 685.4
           },
           {
-            "season_name":"Post Monsoon",
-            "rainfall": 6.8
+            "season": "Post Monsoon",
+            "rainfall": 6.8,
+            "average_rainfall": 30
           }
-        ]
+        ],
+        "annual": 622.1,
+        "annual_type": "Average"
       }
     ]
-  },
-  "mandatory_configs":{}
+  }
 }

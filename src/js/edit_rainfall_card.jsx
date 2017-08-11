@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import ExplainerCard from './Container.jsx';
+import RainfallCard from './Container.jsx';
 import JSONSchemaForm from '../../lib/js/react-jsonschema-form';
 
-export default class EditExplainerCard extends React.Component {
+export default class EditRainfallCard extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -46,6 +46,7 @@ export default class EditExplainerCard extends React.Component {
               configs: opt_config.data
             },
             schemaJSON: schema.data,
+            currData: card.data.data.years[0],
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
           });
@@ -158,8 +159,6 @@ export default class EditExplainerCard extends React.Component {
   }
 
   toggleMode(e) {
-    document.querySelector('.protograph-explainer-text').style.height = '110px'
-    document.querySelector('.protograph-explainer-text').innerHTML = this.state.dataJSON.card_data.data.explainer_text;
     let element = e.target.closest('a'),
       mode = element.getAttribute('data-mode');
     this.setState((prevState, props) => {
@@ -202,7 +201,7 @@ export default class EditExplainerCard extends React.Component {
                 <div>
                   <div className="section-title-text">Fill the form</div>
                   <div className="ui label proto-pull-right">
-                    ToExplain
+                    toRainfall
                   </div>
                 </div>
                 <JSONSchemaForm schema={this.renderSchemaJSON()}
@@ -218,19 +217,19 @@ export default class EditExplainerCard extends React.Component {
                   <div className="ui compact menu">
                     <a className={`item ${this.state.mode === 'laptop' ? 'active' : ''}`}
                       data-mode='laptop'
-                      onClick={this.toggleMode}
+                      onClick={(e) => this.toggleMode(e)}
                     >
                       <i className="desktop icon"></i>
                     </a>
                     <a className={`item ${this.state.mode === 'mobile' ? 'active' : ''}`}
                       data-mode='mobile'
-                      onClick={this.toggleMode}
+                      onClick={(e) => this.toggleMode(e)}
                     >
                       <i className="mobile icon"></i>
                     </a>
                   </div>
                 </div>
-                <ExplainerCard
+                <RainfallCard
                   mode={this.state.mode}
                   dataJSON={this.state.dataJSON}
                   schemaJSON={this.state.schemaJSON}
