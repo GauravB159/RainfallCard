@@ -35,7 +35,6 @@ export default class RainfallCard extends React.Component {
     if (this.props.optionalConfigSchemaJSON) {
       stateVar.optionalConfigSchemaJSON = this.props.optionalConfigSchemaJSON;
     }
-
     this.state = stateVar;
   }
 
@@ -76,7 +75,8 @@ export default class RainfallCard extends React.Component {
     });
   }
   componentWillReceiveProps(){
-    this.state.currData = this.state.dataJSON.card_data.data.years[this.state.currIndex];
+    this.state.dataJSON=this.props.dataJSON;
+    this.state.currData = this.props.dataJSON.card_data.data.years[this.state.currIndex];
   }
 
   renderLaptop() {
@@ -132,7 +132,7 @@ export default class RainfallCard extends React.Component {
         <div id="protograph-div" style={styles}>
           <div className="protograph-card" style={{width:"640px",height:"340px",overflow:"visible"}}>
             <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="../../src/img/cloud-icon.png"/>
+              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
             </div>
             <div className="protograph-place">{data.data.district}</div>
             <h3 className="ui header" style={{margin:'10px',marginTop:'0'}}>Rainfall</h3>
@@ -151,7 +151,7 @@ export default class RainfallCard extends React.Component {
               }
               </div>
             </div>
-            <img className="protograph-body-cloud" src="../../src/img/cloud-icon.png"/>
+            <img className="protograph-body-cloud" src="/src/img/cloud-icon.png"/>
             <div className="protograph-annual" style={{width:"320px"}}>
               <div className="protograph-annual-header">Annual Rainfall</div>
               <h2 className="protograph-annual-average">{this.state.currData.annual_type}</h2>
@@ -184,7 +184,7 @@ export default class RainfallCard extends React.Component {
                             }
                           </div>
                           <div className="protograph-bottle-average" style={{bottom:averageh}}/>
-                          <img src="../../src/img/small-waves.svg" style={{bottom:heights[index],position:"absolute"}}/>
+                          <img src="/src/img/small-waves.svg" style={{bottom:heights[index],position:"absolute"}}/>
                           <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
                           <div className="protograph-svg">
                             <svg width="50px" height="10px">
@@ -262,16 +262,16 @@ export default class RainfallCard extends React.Component {
         <div id="protograph-div" style={styles}>
           <div className="protograph-card" style={styles}>
             <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="../../src/img/cloud-icon.png"/>
+              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
             </div>
             <div className="protograph-place">{data.data.district}</div>
             <h3 className="ui header" style={{margin:'10px',marginTop:'0'}}>Rainfall</h3>
             <div className="protograph-tab-cont" style={{width:"100%",overflowX:"auto"}}>
-              <div className="protograph-tabs" style={{width:"400px",overflowX:"hidden"}}>
+              <div className="protograph-tabs" style={{width:85*years.length,overflowX:"hidden"}}>
               {
                 years.map((year,index)=>{
                   return (
-                    <div className="protograph-tab-container" key={index} id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:"80px"}}>
+                    <div className="protograph-tab-container" key={index} id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:"85px"}}>
                       <div className="protograph-tab">
                         {year}
                       </div>
@@ -281,7 +281,7 @@ export default class RainfallCard extends React.Component {
               }
               </div>
             </div>
-            <img className="protograph-body-mobile-cloud" src="../../src/img/cloud-icon.png"/>
+            <img className="protograph-body-mobile-cloud" src="/src/img/cloud-icon.png"/>
             <div className="protograph-annual" style={{width:"100%"}}>
               <div className="protograph-annual-header">Annual Rainfall</div>
               <h2 className="protograph-annual-average">{this.state.currData.annual_type}</h2>
@@ -313,7 +313,7 @@ export default class RainfallCard extends React.Component {
                           }
                         </div>
                         <div style={{bottom:heights[index]-1,position:"absolute",width:"28px",height:"15px"}}>
-                          <img src="../../src/img/small-waves.svg" style={{width:"100%"}}/> 
+                          <img src="/src/img/small-waves.svg" style={{width:"100%"}}/> 
                         </div>                       
                         <div className="protograph-bottle-average" style={{bottom:averageh}}/>
                         <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
@@ -372,8 +372,12 @@ export default class RainfallCard extends React.Component {
         datum.seasons.forEach((value)=>{
           if(value.rainfall > maxDomain)
             maxDomain = value.rainfall;
+          if(value.average_rainfall > maxDomain)
+            maxDomain = value.average_rainfall
           if(value.rainfall < minDomain)
             minDomain = value.rainfall;
+          if(value.average_rainfall < minDomain)
+            minDomain = value.average_rainfall
         });
       });
       values.forEach((value)=>{
@@ -387,13 +391,14 @@ export default class RainfallCard extends React.Component {
         <div id="ProtoScreenshot">
           <div className="protograph-card" style={styles}>
             <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="src/img/cloud-icon.png"/>
+              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
             </div>
-            <div className="protograph-place">Agra</div>
-            <h3 className="ui header" style={{margin:'0 15px'}}>Rainfall</h3>
+            <div className="protograph-place">{data.data.district}</div>
+            <h3 className="ui header" style={{margin:'0 10px'}}>Rainfall</h3>
             <div className="protograph-values" style={{width:"100%",marginTop:"-10px"}}>
               {
                 values.map((value,index)=>{
+                  let averageh = minRange + multiplier * (value.average_rainfall - minDomain)
                   return(
                     <div className="protograph-value" style={{left:25*index+1 +"%"}}>
                       <div className="protograph-rainfall">
@@ -409,14 +414,14 @@ export default class RainfallCard extends React.Component {
                             })
                           }
                         </div>
-                        <div style={{bottom:heights[index]-2,position:"absolute",width:"30px",height:"15px"}}>
-                          <img src="src/img/small-waves.svg" style={{width:"100%"}}/> 
+                        <div style={{bottom:heights[index]-2,position:"absolute",width:"28px",height:"15px"}}>
+                          <img src="/src/img/small-waves.svg" style={{width:"100%"}}/> 
                         </div>                       
-                        <div className="protograph-bottle-average" style={{bottom:heights[index]+8}}/>
+                        <div className="protograph-bottle-average" style={{bottom:averageh}}/>
                         <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
                         <div className="protograph-svg">
                           <svg width="50px" height="10px">
-                            <path d="M12 0 L8 5 H 46 L42 0" fill="transparent" style={{marginTop:"-1px",fill:'#4A90E2'}}/>
+                            <path d="M12 0 L8 5 H 44 L40 0" fill="transparent" style={{marginTop:"-1px",fill:'#4A90E2'}}/>
                           </svg>
                         </div>
                         <div className="protograph-season">
