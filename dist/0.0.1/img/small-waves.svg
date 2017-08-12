@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="5px" viewBox="0 0 28 5" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>small-waves</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="small-waves">
+            <path d="M0,0.805114746 C2.46646267,0.244362732 5.09487964,-0.0240088503 7.88525092,-1.51788304e-18 C12.0708078,0.0360132755 13.9874956,1.61811499 20.0107711,1.85587808 C24.0262881,2.0143868 26.6893644,1.83271263 28,1.31085555 L28,4.89982149 L9.01040428e-16,4.89982149 L0,0.805114746 Z" id="Rectangle-2-Copy-13" fill="#6EAAF0" transform="translate(14.000000, 2.449171) scale(-1, 1) translate(-14.000000, -2.449171) "></path>
+            <path d="M0,0.785779848 C1.15098599,0.261926616 2.67020264,0 4.55764994,0 C7.38882089,0 14.0195641,2.89113991 20.0428397,3.17032505 C24.0583567,3.35644849 26.7107435,2.56160008 28,0.785779848 L28,5 L9.01040428e-16,5 L0,0.785779848 Z" id="Rectangle-2-Copy-12" fill="#4A90E2"></path>
+        </g>
+    </g>
+</svg>

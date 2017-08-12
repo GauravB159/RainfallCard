@@ -132,7 +132,7 @@ export default class RainfallCard extends React.Component {
         <div id="protograph-div" style={styles}>
           <div className="protograph-card" style={{width:"640px",height:"340px",overflow:"visible"}}>
             <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
+              <img className="protograph-header-cloud" src="img/cloud-icon.png"/>
             </div>
             <div className="protograph-place">{data.data.district}</div>
             <h3 className="ui header" style={{margin:'10px',marginTop:'0'}}>Rainfall</h3>
@@ -151,7 +151,7 @@ export default class RainfallCard extends React.Component {
               }
               </div>
             </div>
-            <img className="protograph-body-cloud" src="/src/img/cloud-icon.png"/>
+            <img className="protograph-body-cloud" src="img/cloud-icon.png"/>
             <div className="protograph-annual" style={{width:"320px"}}>
               <div className="protograph-annual-header">Annual Rainfall</div>
               <h2 className="protograph-annual-average">{this.state.currData.annual_type}</h2>
@@ -184,7 +184,7 @@ export default class RainfallCard extends React.Component {
                             }
                           </div>
                           <div className="protograph-bottle-average" style={{bottom:averageh}}/>
-                          <img src="/src/img/small-waves.svg" style={{bottom:heights[index],position:"absolute"}}/>
+                          <img src="img/small-waves.svg" style={{bottom:heights[index],position:"absolute"}}/>
                           <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
                           <div className="protograph-svg">
                             <svg width="50px" height="10px">
@@ -262,7 +262,7 @@ export default class RainfallCard extends React.Component {
         <div id="protograph-div" style={styles}>
           <div className="protograph-card" style={styles}>
             <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
+              <img className="protograph-header-cloud" src="img/cloud-icon.png"/>
             </div>
             <div className="protograph-place">{data.data.district}</div>
             <h3 className="ui header" style={{margin:'10px',marginTop:'0'}}>Rainfall</h3>
@@ -281,7 +281,7 @@ export default class RainfallCard extends React.Component {
               }
               </div>
             </div>
-            <img className="protograph-body-mobile-cloud" src="/src/img/cloud-icon.png"/>
+            <img className="protograph-body-mobile-cloud" src="img/cloud-icon.png"/>
             <div className="protograph-annual" style={{width:"100%"}}>
               <div className="protograph-annual-header">Annual Rainfall</div>
               <h2 className="protograph-annual-average">{this.state.currData.annual_type}</h2>
@@ -313,7 +313,7 @@ export default class RainfallCard extends React.Component {
                           }
                         </div>
                         <div style={{bottom:heights[index]-1,position:"absolute",width:"28px",height:"15px"}}>
-                          <img src="/src/img/small-waves.svg" style={{width:"100%"}}/> 
+                          <img src="img/small-waves.svg" style={{width:"100%"}}/> 
                         </div>                       
                         <div className="protograph-bottle-average" style={{bottom:averageh}}/>
                         <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
@@ -391,7 +391,7 @@ export default class RainfallCard extends React.Component {
         <div id="ProtoScreenshot">
           <div className="protograph-card" style={styles}>
             <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
+              <img className="protograph-header-cloud" src="img/cloud-icon.png"/>
             </div>
             <div className="protograph-place">{data.data.district}</div>
             <h3 className="ui header" style={{margin:'0 10px'}}>Rainfall</h3>
@@ -415,7 +415,7 @@ export default class RainfallCard extends React.Component {
                           }
                         </div>
                         <div style={{bottom:heights[index]-2,position:"absolute",width:"28px",height:"15px"}}>
-                          <img src="/src/img/small-waves.svg" style={{width:"100%"}}/> 
+                          <img src="img/small-waves.svg" style={{width:"100%"}}/> 
                         </div>                       
                         <div className="protograph-bottle-average" style={{bottom:averageh}}/>
                         <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
