@@ -23,7 +23,7 @@
                 "title": "Year",
                 "id": "/properties/data/properties/questions/items/properties/question",
                 "type": "string",
-                "default":"1970"
+                "default": "1970"
               },
               "seasons": {
                 "title": "Seasons",
@@ -33,42 +33,43 @@
                   "title": "Season",
                   "separator": "#",
                   "hideTitle": true,
+                  "minItems": 1,
+                  "maxItems": 4,
                   "properties": {
                     "season": {
                       "id": "/properties/data/properties/questions/items/properties/options/items/properties/fact",
                       "type": "string",
                       "title": "Season",
-                      "default":"Monsoon"
+                      "default": "Monsoon"
                     },
                     "rainfall": {
                       "title": "Rainfall",
                       "id": "/properties/data/properties/questions/items/properties/options/items/properties/option",
-                      "default":100,
+                      "default": 100,
                       "type": "integer"
                     },
                     "average_rainfall": {
                       "title": "Average Rainfall",
                       "id": "/properties/data/properties/questions/items/properties/options/items/properties/option",
                       "type": "integer",
-                      "default":100
+                      "default": 100
                     }
                   },
                   "addButtonText": "Add a season",
                   "type": "object"
                 },
                 "minItems": 1,
-                "maxItems":4,
                 "type": "array"
               },
               "annual": {
                 "type": "integer",
                 "title": "Annual Rainfall",
-                "default":200
+                "default": 200
               },
               "annual_type": {
                 "type": "string",
                 "title": "Annual Rainfall Description",
-                "default":"Average"
+                "default": "Average"
               }
             },
             "minItems": 1,
