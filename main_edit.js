@@ -18,6 +18,7 @@ ProtoGraph.Card.toRainfall.prototype.renderEdit = function (onPublishCallback) {
     <EditRainfallCard
       dataURL={this.options.data_url}
       schemaURL={this.options.schema_url}
+      uiSchemaURL={this.options.ui_schema_url}
       optionalConfigURL={this.options.configuration_url}
       optionalConfigSchemaURL={this.options.configuration_schema_url}
       onPublishCallback={this.onPublishCallback}

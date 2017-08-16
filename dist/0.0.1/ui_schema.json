@@ -1,0 +1,18 @@
+{
+  "data":{
+    "years":{
+      "items":{
+        "seasons":{
+          "items":{
+            "season":{
+              "ui:disabled":true
+            },
+            "rainfall": {
+              "ui:help": "If not applicable, enter NA"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -75,8 +75,12 @@ export default class RainfallCard extends React.Component {
     });
   }
   componentWillReceiveProps(){
-    this.state.dataJSON=this.props.dataJSON;
-    this.state.currData = this.props.dataJSON.card_data.data.years[this.state.currIndex];
+    let data=JSON.parse(JSON.stringify(this.props.dataJSON));
+    data.card_data.data.years.sort((a,b)=>{
+      return a.year-b.year;
+    });
+    this.state.dataJSON=data;
+    this.state.currData = data.card_data.data.years[this.state.currIndex];
   }
 
   renderLaptop() {
@@ -93,6 +97,9 @@ export default class RainfallCard extends React.Component {
       });
 
       let values = this.state.currData.seasons;
+      values = values.filter((value)=>{
+        return typeof value.rainfall !== "string" && value.rainfall !== "NA" && value.rainfall !== NaN && value.rainfall !== undefined;
+      });
       let tab_width=(300)/years.length + "px";
       let ticks=[];
       for(let i=0;i <= 48;i++){
@@ -225,6 +232,9 @@ export default class RainfallCard extends React.Component {
         years.push(datum.year);
       });
       let values = this.state.currData.seasons;
+      values = values.filter((value)=>{
+        return value.rainfall !== "NA" && value.rainfall !== NaN && value.rainfall !== undefined;
+      });
       let tab_width=(300)/years.length + "px";
       let ticks=[];
       for(let i=0;i <= 48;i++){
@@ -300,7 +310,7 @@ export default class RainfallCard extends React.Component {
                 values.map((value,index)=>{
                   let averageh = minRange + multiplier * (value.average_rainfall - minDomain)
                   return(
-                    <div className="protograph-value" key={index} style={{left:(100/values.length)*index - 1 +"%"}}>
+                    <div className="protograph-value" key={index} style={{left:(100/values.length)*index + (11-3*values.length) +"%"}}>
                       <div className="protograph-rainfall">
                         { value.rainfall + " mm"}
                       </div>
