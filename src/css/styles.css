@@ -4,11 +4,11 @@ body{
 .protograph-card{
 	border:1px solid #DDD;
 	border-radius: 1%;
-	height:420px;
 	position:relative;
 	overflow: hidden;
 	margin-left: 2%;
 }
+
 #protograph-div{
   margin:auto;
 }
@@ -93,8 +93,11 @@ body{
 	display:inline-block;
 }
 #protograph_color{
-	background-color: #4A90E2;
-	color:white;
+	background-color: transparent;	
+	pointer-events:none;
+}
+#protograph_inactive{
+	background-color: rgba(250,250,250,0.6);	
 }
 .protograph-bottle{
 	width:28px;
@@ -111,8 +114,10 @@ body{
 }
 .protograph-tab{
 	text-align: center;
+	cursor:pointer;
 	margin: 8px;
 }
+
 .protograph-tab-container{
 	border:1px solid #F8F8F8;
 }
@@ -160,7 +165,6 @@ body{
 	margin-left:10px;
 	font-size:14px;
 	color:black;
-	font-weight: bold;
 }
 .protograph-values{
 	position:relative;

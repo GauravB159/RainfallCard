@@ -8,25 +8,26 @@
           {
             "season": "Winter",
             "rainfall": 24.5,
-            "average_rainfall": 27.5
+            "dep_perc": -11
           },
           {
             "season": "Pre Monsoon",
             "rainfall": 6.1,
-            "average_rainfall": 22.6
+            "dep_perc": -73
           },
           {
             "season": "Monsoon",
             "rainfall": 562,
-            "average_rainfall": 685.4
+            "dep_perc": -18
           },
           {
             "season": "Post Monsoon",
             "rainfall": 0.6,
-            "average_rainfall": 30
+            "dep_perc": -98
           }
         ],
-        "annual": 770.4,
+        "annual": 593.2,
+        "annual_dep_perc":-23,
         "annual_type": "Average"
       },
       {
@@ -35,25 +36,26 @@
           {
             "season": "Winter",
             "rainfall": 37.8,
-            "average_rainfall": 27.5
+            "dep_perc": 38
           },
           {
             "season": "Pre Monsoon",
             "rainfall": 6,
-            "average_rainfall": 22.6
+            "dep_perc": -73
           },
           {
             "season": "Monsoon",
             "rainfall": 578.8,
-            "average_rainfall": 685.4
+            "dep_perc": -16
           },
           {
             "season": "Post Monsoon",
             "rainfall": 88.4,
-            "average_rainfall": 30
+            "dep_perc": 134
           }
         ],
         "annual": 711,
+        "annual_dep_perc":-8,
         "annual_type": "Average"
       },
       {
@@ -62,25 +64,26 @@
           {
             "season": "Winter",
             "rainfall": 64.1,
-            "average_rainfall": 27.5
+            "dep_perc": 134
           },
           {
             "season": "Pre Monsoon",
-            "rainfall": 25.1,
-            "average_rainfall": 22.6
+            "rainfall": 2.1,
+            "dep_perc": 13
           },
           {
             "season": "Monsoon",
             "rainfall": 257.1,
-            "average_rainfall": 685.4
+            "dep_perc": -63
           },
           {
             "season": "Post Monsoon",
             "rainfall": 16.6,
-            "average_rainfall": 30
+            "dep_perc": -56
           }
         ],
         "annual": 362.9,
+        "annual_dep_perc":-53,
         "annual_type": "Average"
       },
       {
@@ -89,25 +92,26 @@
           {
             "season": "Winter",
             "rainfall": 32.5,
-            "average_rainfall": 27.5
+            "dep_perc": 19
           },
           {
             "season": "Pre Monsoon",
             "rainfall": 110.8,
-            "average_rainfall": 22.6
+            "dep_perc": 399
           },
           {
             "season": "Monsoon",
             "rainfall": 213.2,
-            "average_rainfall": 685.4
+            "dep_perc": -69
           },
           {
             "season": "Post Monsoon",
             "rainfall": 16.8,
-            "average_rainfall": 30
+            "dep_perc": -56
           }
         ],
         "annual": 373.3,
+        "annual_dep_perc":-52,
         "annual_type": "Average"
       },
       {
@@ -116,25 +120,26 @@
           {
             "season": "Winter",
             "rainfall": 0.3,
-            "average_rainfall": 27.5
+            "dep_perc": -99
           },
           {
             "season": "Pre Monsoon",
             "rainfall": 22.5,
-            "average_rainfall": 22.6
+            "dep_perc": 1
           },
           {
             "season": "Monsoon",
             "rainfall": 592.6,
-            "average_rainfall": 685.4
+            "dep_perc": -14
           },
           {
             "season": "Post Monsoon",
             "rainfall": 6.8,
-            "average_rainfall": 30
+            "dep_perc": -82
           }
         ],
         "annual": 622.1,
+        "annual_dep_perc":-20,
         "annual_type": "Average"
       }
     ]

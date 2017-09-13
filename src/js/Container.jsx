@@ -54,6 +54,7 @@ export default class RainfallCard extends React.Component {
               configs: opt_config.data
             },
             currData: card.data.data.years[0],
+            currIndex:0,
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
@@ -63,11 +64,13 @@ export default class RainfallCard extends React.Component {
   }
 
 
-  handleClick(index){
+  handleClick(e){
+    e.stopPropagation();
     let data=this.state.dataJSON.card_data.data.years;
-    let tab=document.getElementsByClassName("protograph-tab-container")[index];
+    let tab=e.target;
+    let index=data.findIndex((datum)=>tab.parentNode.firstChild.innerHTML === datum.year);
     let activeTab=document.getElementById("protograph_color");
-    activeTab.removeAttribute("id");
+    activeTab.id="protograph_inactive";
     tab.id="protograph_color";
     this.setState({
       currData:data[index],
@@ -93,124 +96,65 @@ export default class RainfallCard extends React.Component {
       }
       let years=[];
       data.data.years.forEach((datum)=>{
-        years.push(datum.year);
+        years.push(datum);
       });
-
+      let imgs=['winter.png','rainfall.png','monsoon.png','rainfall.png'];
       let values = this.state.currData.seasons;
       values = values.filter((value)=>{
         return typeof value.rainfall !== "string" && value.rainfall !== "NA" && value.rainfall !== NaN && value.rainfall !== undefined;
       });
-      let tab_width=(300)/years.length + "px";
-      let ticks=[];
-      for(let i=0;i <= 48;i++){
-        if(i%8===0){
-          ticks.push(9)
-        }else if(i%4===0){
-          ticks.push(6)
-        }else{
-          ticks.push(3);
-        }
-      }
-      let minDomain = 0;
-      let maxDomain = values[0].rainfall;
-      let heights=[];
-      data.data.years.forEach((datum)=>{
-        datum.seasons.forEach((value)=>{
-          if(value === undefined)
-            return
-          if(value.rainfall > maxDomain)
-            maxDomain = value.rainfall;
-          if(value.average_rainfall > maxDomain)
-            maxDomain = value.average_rainfall
-          if(value.rainfall < minDomain)
-            minDomain = value.rainfall;
-          if(value.average_rainfall < minDomain)
-            minDomain = value.average_rainfall
-        });
-      });
-      values.forEach((value)=>{
-        heights.push(value.rainfall);
-      })
-      let minRange = 6;
-      let maxRange = 115;
-      let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
-      heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
       return (
         <div id="protograph-div" style={styles}>
-          <div className="protograph-card" style={{width:"640px",height:"340px",overflow:"visible"}}>
-            <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
-            </div>
+          <div className="protograph-card" style={{marginLeft:10,width:"640px",overflow:"visible"}}>
             <div className="protograph-place">{data.data.district}</div>
-            <h3 className="ui header" style={{margin:'10px',marginTop:'0'}}>Rainfall</h3>
-            <div className="protograph-tab-cont" style={{width:"640px",overflowX:"auto"}}>
-              <div className="protograph-tabs" style={{width:"640px",overflowX:"hidden"}}>
-              {
-                years.map((year,index)=>{
-                  return (
-                    <div className="protograph-tab-container" key={index} id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:100/years.length+"%"}}>
-                      <div className="protograph-tab">
-                        {year}
-                      </div>
-                    </div>
-                  )
-                })
-              }
-              </div>
-            </div>
-            <img className="protograph-body-cloud" src="/src/img/cloud-icon.png"/>
+            <p style={{margin:'10px',marginTop:'0'}}>Annual Rainfall in {years[this.state.currIndex]['year']}</p>
             <div className="protograph-annual" style={{width:"320px"}}>
-              <div className="protograph-annual-header">Annual Rainfall</div>
-              <h2 className="protograph-annual-average">{this.state.currData.annual_type}</h2>
-              <div className="protograph-annual-value">{this.state.currData.annual} mm</div>
-            </div>
-            <div className="protograph-right">
-              <div className="protograph-average">
-                <div className="protograph-average-line"/>
-                <div className="protograph-average-text">
-                  Average line
-                </div>
+              <p style={{fontSize:34,fontWeight:'bold'}} className="protograph-annual-average">{this.state.currData.annual_type}</p>
+              <div className="protograph-annual-value">
+                <span className="protograph-annual-rainfall-value" style={{marginRight:20}}>{this.state.currData.annual} mm </span>
+                <span className="protograph-annual-rainfall-percent" style={{color:this.state.currData.annual_dep_perc < 0 ? 'red' : 'black'}}>{Math.abs(this.state.currData.annual_dep_perc)}% below normal</span>
               </div>
-              <div className="protograph-values" style={{width:"300px",height:"50%"}}>
+            </div>
+            <div className="protograph-values" style={{marginTop:30}}>
+              <div>
+                <div style={{display:"inline-block"}}>
                 {
                   values.map((value,index)=>{
-                    let averageh = minRange + multiplier * (value.average_rainfall - minDomain);
                     return(
-                      <div className="protograph-value" key={index} style={{left:(300/values.length)*index - 6 +"px"}}>
-                        <div className="protograph-rainfall">
-                          { value.rainfall + " mm"}
-                        </div>
-                        <div className="protograph-bottle" style={index%2 === 0 ? { top:"-19px",marginTop:"44px"} : {}}>
-                          <div className="protograph-ticks">
-                            {
-                              ticks.map((length,index)=>{
-                                return (
-                                  <hr key={index} style={{width:length}}/>
-                                );
-                              })
-                            }
-                          </div>
-                          <div className="protograph-bottle-average" style={{bottom:averageh}}/>
-                          <img src="/src/img/small-waves.svg" style={{bottom:heights[index],position:"absolute"}}/>
-                          <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
-                          <div className="protograph-svg">
-                            <svg width="50px" height="10px">
-                              <path d="M12 0 L8 5 H 44 L40 0" fill="transparent" style={{fill:'#4A90E2'}}/>
-                            </svg>
-                          </div>
-                          <div className="protograph-season">
-                            { value.season}
-                          </div>
-                        </div>
+                      <div style={{width:"120px",textAlign:'center',display:"inline-block"}}>
+                        <div style={{color:'#999',fontSize:12,textAlign:'center'}}>{value.season}</div>
+                        <img src={"/src/img/"+imgs[index]}/>
+                        <div>{value.rainfall}</div>
+                        <div style={{position:'relative',marginLeft:-10,color:value.dep_perc <= 0? 'red' : 'black'}}>{value.dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(value.dep_perc)}%</div>
                       </div>
-                    );                  
+                    );
                   })
                 }
+                </div>
+                <div style={{float:'right',bottom:0,position:'absolute',right:40,fontSize:12}}>
+                  <div>Rainfall level in mm</div>
+                  <div>Above/Below normal</div>
+                </div> 
               </div>
             </div>
-            <div style={{position:"absolute",bottom:"0px"}}>
-              <hr style={{width:"638px",marginBottom:"0",opacity:"0.2"}}/>
-              <div className="protograph-site">www.jagran.com</div>
+            <div style={{marginTop:20}} className="protograph-tabs">
+              {
+                years.map((year,index)=>{
+                  return(
+                    <div style={{position:'relative',left:0,width:142,margin:0,height:115,borderTop:'1px solid #CCC',zIndex:2,borderRight: index < years.length - 1 ? '1px solid #CCC' : '0px'}} className="protograph-tab">
+                      <div style={{marginTop:10}}>
+                        <div style={{color:'#999',fontSize:12,textAlign:'center'}}>{year.year}</div>
+                        <img src="/src/img/rainfall.png" />
+                        <div>{year.annual}</div>
+                        <div style={{color:year.annual_dep_perc <= 0 ? 'red' : 'black'}}>
+                          {year.annual_dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(year.annual_dep_perc).toFixed(0)}%
+                        </div>
+                        <div onClick={(e)=> this.handleClick(e)} style={{height:"100%",width:"100%",position:'absolute',top:0,zIndex:20}} id={index === years.length -1 ?'protograph_color' : 'protograph_inactive'}></div>
+                      </div>
+                    </div>
+                  );
+                })
+              }
             </div>
           </div>
         </div>
@@ -263,7 +207,7 @@ export default class RainfallCard extends React.Component {
       });
       values.forEach((value)=>{
         heights.push(value.rainfall);
-      })
+      });
       let minRange = 6;
       let maxRange = 115;
       let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
