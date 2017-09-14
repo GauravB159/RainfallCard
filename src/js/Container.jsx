@@ -21,7 +21,7 @@ export default class RainfallCard extends React.Component {
     if (this.props.dataJSON) {
       stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
-      stateVar.currData = this.props.dataJSON.card_data.data.years[0];
+      stateVar.currData = this.props.dataJSON.card_data.data.years[this.props.dataJSON.card_data.data.years.length -1];
     }
 
     if (this.props.schemaJSON) {
@@ -53,8 +53,8 @@ export default class RainfallCard extends React.Component {
               card_data: card.data,
               configs: opt_config.data
             },
-            currData: card.data.data.years[0],
-            currIndex:0,
+            currData: card.data.data.years[card.data.data.years.length-1],
+            currIndex:card.data.data.years.length-1,
             schemaJSON: schema.data,
             optionalConfigJSON: opt_config.data,
             optionalConfigSchemaJSON: opt_config_schema.data
@@ -168,128 +168,35 @@ export default class RainfallCard extends React.Component {
     } else {
       const data = this.state.dataJSON.card_data;
       let styles = {
-        width : "98%",
-        maxWidth:"320px"
+        width : "240px"
       }
       let years=[];
       data.data.years.forEach((datum)=>{
-        years.push(datum.year);
+        years.push(datum);
       });
+      let imgs=['winter.png','rainfall.png','monsoon.png','rainfall.png'];
       let values = this.state.currData.seasons;
       values = values.filter((value)=>{
-        return value.rainfall !== "NA" && value.rainfall !== NaN && value.rainfall !== undefined;
+        return typeof value.rainfall !== "string" && value.rainfall !== "NA" && value.rainfall !== NaN && value.rainfall !== undefined;
       });
-      let tab_width=(300)/years.length + "px";
-      let ticks=[];
-      for(let i=0;i <= 48;i++){
-        if(i%8===0){
-          ticks.push(8)
-        }else if(i%4===0){
-          ticks.push(4)
-        }else{
-          ticks.push(2);
-        }
-      }
-      let minDomain = 0;
-      let maxDomain = values[0].rainfall;
-      let heights=[];
-      data.data.years.forEach((datum)=>{
-        datum.seasons.forEach((value)=>{
-          if(value.rainfall > maxDomain)
-            maxDomain = value.rainfall;
-          if(value.average_rainfall > maxDomain)
-            maxDomain = value.average_rainfall
-          if(value.rainfall < minDomain)
-            minDomain = value.rainfall;
-          if(value.average_rainfall < minDomain)
-            minDomain = value.average_rainfall
-        });
-      });
-      values.forEach((value)=>{
-        heights.push(value.rainfall);
-      });
-      let minRange = 6;
-      let maxRange = 115;
-      let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
-      heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
+      let year=years[years.length-1];
       return (
         <div id="protograph-div" style={styles}>
-          <div className="protograph-card" style={styles}>
-            <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
-            </div>
-            <div className="protograph-place">{data.data.district}</div>
-            <h3 className="ui header" style={{margin:'10px',marginTop:'0'}}>Rainfall</h3>
-            <div className="protograph-scroll-hide" style={{height:"38px",overflowY:"hidden"}}>
-              <div className="protograph-tab-cont" style={{width:"100%",overflowX:"auto"}}>
-                <div className="protograph-tabs" style={{width:85*years.length,overflowX:"hidden"}}>
-                {
-                  years.map((year,index)=>{
-                    return (
-                      <div className="protograph-tab-container" key={index} id={index === 0 ? "protograph_color" : ""} onClick={()=> this.handleClick(index)} style={{width:"85px"}}>
-                        <div className="protograph-tab">
-                          {year}
-                        </div>
-                      </div>
-                    )
-                  })
-                }
+          <div className="protograph-card" style={{marginLeft:10,width:"240px",overflow:"visible"}}>
+            <div style={{marginBottom:10,marginLeft:10}}>
+              <div className="protograph-place">{data.data.district}</div>
+              <p style={{margin:'10px',marginTop:'0'}}>Annual Rainfall in {years[this.state.currIndex]['year']}</p>
+              <div className="protograph-annual" style={{width:"240px"}}>
+                <div style={{position:'relative'}}>
+                  <p style={{fontSize:34,fontWeight:'bold'}} className="protograph-annual-average">               {this.state.currData.annual_type}
+                  </p>
+                <img style={{position:'absolute',right:40,top:10}} src="/src/img/rainfall.png" />
+                </div>
+                <div className="protograph-annual-value">
+                  <span className="protograph-annual-rainfall-value" style={{marginRight:20}}>{this.state.currData.annual} mm </span>
+                  <span className="protograph-annual-rainfall-percent" style={{color:this.state.currData.annual_dep_perc < 0 ? 'red' : 'black'}}>{Math.abs(this.state.currData.annual_dep_perc)}% below normal</span>
                 </div>
               </div>
-            </div>
-            <img className="protograph-body-mobile-cloud" src="/src/img/cloud-icon.png"/>
-            <div className="protograph-annual" style={{width:"100%"}}>
-              <div className="protograph-annual-header">Annual Rainfall</div>
-              <h2 className="protograph-annual-average">{this.state.currData.annual_type}</h2>
-              <div className="protograph-annual-value">{this.state.currData.annual} mm</div>
-            </div>
-            <div className="protograph-average">
-              <div className="protograph-average-line"/>
-              <div className="protograph-average-text">
-                Average line
-              </div>
-            </div>
-            <div className="protograph-values" style={{width:"100%"}}>
-              {
-                values.map((value,index)=>{
-                  let averageh = minRange + multiplier * (value.average_rainfall - minDomain)
-                  return(
-                    <div className="protograph-value" key={index} style={{left:(100/values.length)*index + (11-3*values.length) +"%"}}>
-                      <div className="protograph-rainfall">
-                        { value.rainfall + " mm"}
-                      </div>
-                      <div className="protograph-bottle" style={index%2 === 0 ? { top:"-19px",marginTop:"44px"} : {}}>
-                        <div className="protograph-ticks">
-                          {
-                            ticks.map((length,index)=>{
-                              return (
-                                <hr style={{width:length}} key={index}/>
-                              );
-                            })
-                          }
-                        </div>
-                        <div style={{bottom:heights[index]-1,position:"absolute",width:"28px",height:"15px"}}>
-                          <img src="/src/img/small-waves.svg" style={{width:"100%"}}/> 
-                        </div>                       
-                        <div className="protograph-bottle-average" style={{bottom:averageh}}/>
-                        <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
-                        <div className="protograph-svg">
-                          <svg width="50px" height="10px">
-                            <path d="M12 0 L8 5 H 44 L40 0" fill="transparent" style={{marginTop:"-1px",fill:'#4A90E2'}}/>
-                          </svg>
-                        </div>
-                        <div className="protograph-season">
-                          { value.season}
-                        </div>
-                      </div>
-                    </div>
-                  );                  
-                })
-              }
-            </div>
-            <div style={{position:"absolute",bottom:"0px",width:"98%",maxWidth:"320px"}}>
-              <hr style={{width:"97%",marginBottom:"0",opacity:"0.2"}}/>
-              <div className="protograph-site">www.jagran.com</div>
             </div>
           </div>
         </div>
