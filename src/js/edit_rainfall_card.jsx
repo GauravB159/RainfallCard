@@ -105,7 +105,7 @@ export default class EditRainfallCard extends React.Component {
   }
 
   renderSEO() {
-    let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.card_data.data.explainer_header}</h3><p>${this.state.dataJSON.card_data.data.explainer_text}</p></blockquote>`
+    let seo_blockquote = `<blockquote><h3>${this.state.dataJSON.card_data.data.district}</h3><p>${this.state.dataJSON.card_data.data.years[this.state.dataJSON.card_data.data.years.length - 1].annual_type}</p></blockquote>`
     return seo_blockquote;
   }
 

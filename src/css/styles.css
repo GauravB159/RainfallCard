@@ -37,55 +37,6 @@ body{
 	color:#999;
 	margin-left: 2%;
 }
-.protograph-header-cloud{
-	width:26px;
-	height:20px;
-	margin-right: 10px;
-	margin-top: 10px;
-	float:right;
-	display:inline-block;
-	image-rendering: optimizeSpeed;             
-    image-rendering: -moz-crisp-edges;          
-    image-rendering: -o-crisp-edges;            
-    image-rendering: -webkit-optimize-contrast; 
-    image-rendering: optimize-contrast;    
-    -ms-interpolation-mode: nearest-neighbor;
-}
-.protograph-body-cloud{
-	width:130px;
-	height:100px;
-	margin-right: 10px;
-	margin-top: 10px;
-	display:inline-block;
-	opacity: 0.05;
-	position: absolute;
-	left:175px;
-	overflow: hidden;
-	margin-right:-16px;
-	image-rendering: optimizeSpeed;             
-    image-rendering: -moz-crisp-edges;          
-    image-rendering: -o-crisp-edges;            
-    image-rendering: -webkit-optimize-contrast; 
-    image-rendering: optimize-contrast;    
-    -ms-interpolation-mode: nearest-neighbor;
-}
-.protograph-body-mobile-cloud{
-	width:130px;
-	height:100px;
-	margin-right: 10px;
-	margin-top: 10px;
-	float:right;
-	display:inline-block;
-	opacity: 0.05;
-	overflow: hidden;
-	margin-right:-16px;
-	image-rendering: optimizeSpeed;             
-    image-rendering: -moz-crisp-edges;          
-    image-rendering: -o-crisp-edges;            
-    image-rendering: -webkit-optimize-contrast; 
-    image-rendering: optimize-contrast;    
-    -ms-interpolation-mode: nearest-neighbor;
-}
 .protograph-value{
 	width:75px;
 	height:210px;
@@ -225,6 +176,5 @@ hr{
   width: 450px;
   padding: 10px 15px;
   height: 450px;
-  overflow: hidden;
 }
 

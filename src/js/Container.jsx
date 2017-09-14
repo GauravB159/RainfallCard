@@ -22,6 +22,7 @@ export default class RainfallCard extends React.Component {
       stateVar.fetchingData = false;
       stateVar.dataJSON = this.props.dataJSON;
       stateVar.currData = this.props.dataJSON.card_data.data.years[this.props.dataJSON.card_data.data.years.length -1];
+      stateVar.currIndex = this.props.dataJSON.card_data.data.years.length - 1;
     }
 
     if (this.props.schemaJSON) {
@@ -83,9 +84,12 @@ export default class RainfallCard extends React.Component {
       return a.year-b.year;
     });
     this.state.dataJSON=data;
-    this.state.currData = data.card_data.data.years[this.state.currIndex];
+    this.state.currData = data.card_data.data.years[data.card_data.data.years.length-1];
+    this.setState({
+      currIndex: data.card_data.data.years.length - 1
+    })
   }
-
+  
   renderLaptop() {
     if (this.state.schemaJSON === undefined ){
       return(<div>Loading</div>)
@@ -121,9 +125,11 @@ export default class RainfallCard extends React.Component {
                 {
                   values.map((value,index)=>{
                     return(
-                      <div style={{width:"120px",textAlign:'center',display:"inline-block"}}>
+                      <div key={index} style={{width:"120px",textAlign:'center',display:"inline-block"}}>
                         <div style={{color:'#999',fontSize:12,textAlign:'center'}}>{value.season}</div>
-                        <img src={"/src/img/"+imgs[index]}/>
+                        <div style={{height:'40px',textAlign:'center'}}>
+                          <img src={"/src/img/"+imgs[index]}/>
+                        </div>
                         <div>{value.rainfall}</div>
                         <div style={{position:'relative',marginLeft:-10,color:value.dep_perc <= 0? 'red' : 'black'}}>{value.dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(value.dep_perc)}%</div>
                       </div>
@@ -141,7 +147,7 @@ export default class RainfallCard extends React.Component {
               {
                 years.map((year,index)=>{
                   return(
-                    <div style={{position:'relative',left:0,width:142,margin:0,height:115,borderTop:'1px solid #CCC',zIndex:2,borderRight: index < years.length - 1 ? '1px solid #CCC' : '0px'}} className="protograph-tab">
+                    <div key={index} style={{position:'relative',left:0,width:142,margin:0,height:115,borderTop:'1px solid #CCC',zIndex:2,borderRight: index < years.length - 1 ? '1px solid #CCC' : '0px'}} className="protograph-tab">
                       <div style={{marginTop:10}}>
                         <div style={{color:'#999',fontSize:12,textAlign:'center'}}>{year.year}</div>
                         <img src="/src/img/rainfall.png" />
@@ -179,7 +185,7 @@ export default class RainfallCard extends React.Component {
       values = values.filter((value)=>{
         return typeof value.rainfall !== "string" && value.rainfall !== "NA" && value.rainfall !== NaN && value.rainfall !== undefined;
       });
-      let year=years[years.length-1];
+      let year=years[years.length-1];      
       return (
         <div id="protograph-div" style={styles}>
           <div className="protograph-card" style={{marginLeft:10,width:"240px",overflow:"visible"}}>
@@ -210,91 +216,48 @@ export default class RainfallCard extends React.Component {
     } else {
       const data = this.state.dataJSON.card_data;
       let styles = {
-        width : "100%"
+        width : "450px"
       }
       let years=[];
       data.data.years.forEach((datum)=>{
-        years.push(datum.year_no);
+        years.push(datum);
       });
+      let imgs=['winter.png','rainfall.png','monsoon.png','rainfall.png'];
       let values = this.state.currData.seasons;
-      let tab_width=(300)/years.length + "px";
-      let ticks=[];
-      for(let i=0;i <= 48;i++){
-        if(i%8===0){
-          ticks.push(8)
-        }else if(i%4===0){
-          ticks.push(4)
-        }else{
-          ticks.push(2);
-        }
-      }
-      let minDomain = 0;
-      let maxDomain = values[0].rainfall;
-      let heights=[];
-      data.data.years.forEach((datum)=>{
-        datum.seasons.forEach((value)=>{
-          if(value.rainfall > maxDomain)
-            maxDomain = value.rainfall;
-          if(value.average_rainfall > maxDomain)
-            maxDomain = value.average_rainfall
-          if(value.rainfall < minDomain)
-            minDomain = value.rainfall;
-          if(value.average_rainfall < minDomain)
-            minDomain = value.average_rainfall
-        });
+      values = values.filter((value)=>{
+        return typeof value.rainfall !== "string" && value.rainfall !== "NA" && value.rainfall !== NaN && value.rainfall !== undefined;
       });
-      values.forEach((value)=>{
-        heights.push(value.rainfall);
-      })
-      let minRange = 2;
-      let maxRange = 115;
-      let multiplier = (maxRange - minRange)/(maxDomain - minDomain);
-      heights = heights.map((height) => {return minRange + multiplier * (height - minDomain)});
       return (
         <div id="ProtoScreenshot">
-          <div className="protograph-card" style={styles}>
-            <div className="protograph-cloud-wrapper">
-              <img className="protograph-header-cloud" src="/src/img/cloud-icon.png"/>
-            </div>
+          <div className="protograph-card" style={{marginLeft:10,width:"450px",height:'450px',overflow:"visible"}}>
             <div className="protograph-place">{data.data.district}</div>
-            <h3 className="ui header" style={{margin:'0 10px'}}>Rainfall</h3>
-            <div className="protograph-values" style={{width:"100%",marginTop:"-10px"}}>
-              {
-                values.map((value,index)=>{
-                  let averageh = minRange + multiplier * (value.average_rainfall - minDomain)
-                  return(
-                    <div className="protograph-value" style={{left:25*index+1 +"%"}}>
-                      <div className="protograph-rainfall">
-                        { value.rainfall + " mm"}
+            <p style={{margin:'10px',marginTop:'0'}}>Annual Rainfall in {years[this.state.currIndex]['year']}</p>
+            <div className="protograph-annual" style={{width:"320px"}}>
+              <p style={{fontSize:34,fontWeight:'bold'}} className="protograph-annual-average">{this.state.currData.annual_type}</p>
+              <div className="protograph-annual-value">
+                <span className="protograph-annual-rainfall-value" style={{marginRight:20}}>{this.state.currData.annual} mm </span>
+                <span className="protograph-annual-rainfall-percent" style={{color:this.state.currData.annual_dep_perc < 0 ? 'red' : 'black'}}>{Math.abs(this.state.currData.annual_dep_perc)}% below normal</span>
+              </div>
+            </div>
+            <div className="protograph-values" style={{marginTop:30}}>
+              <div>
+                <div style={{display:"inline-block",width:'100%'}}>
+                {
+                  values.map((value,index)=>{
+                    return(
+                      <div key={index} style={{width:"25%",textAlign:'center',display:"inline-block"}}>
+                        <div style={{color:'#999',fontSize:12,textAlign:'center'}}>{value.season}</div>
+                        <div style={{height:'40px',textAlign:'center'}}>
+                          <img src={"/src/img/"+imgs[index]}/>
+                        </div>
+                        <div>{value.rainfall}</div>
+                        <div style={{position:'relative',marginLeft:-10,color:value.dep_perc <= 0? 'red' : 'black'}}>{value.dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(value.dep_perc)}%</div>
                       </div>
-                      <div className="protograph-bottle" style={index%2 === 0 ? { top:"-19px",marginTop:"44px"} : {}}>
-                        <div className="protograph-ticks">
-                          {
-                            ticks.map((length,index)=>{
-                              return (
-                                <hr style={{width:length}}/>
-                              );
-                            })
-                          }
-                        </div>
-                        <div style={{bottom:heights[index]-2,position:"absolute",width:"28px",height:"15px"}}>
-                          <img src="/src/img/small-waves.svg" style={{width:"100%"}}/> 
-                        </div>                       
-                        <div className="protograph-bottle-average" style={{bottom:averageh}}/>
-                        <div className="protograph-water" style={{height:heights[index], backgroundColor:"#4A90E2",position:"absolute"}}/>
-                        <div className="protograph-svg">
-                          <svg width="50px" height="10px">
-                            <path d="M12 0 L8 5 H 44 L40 0" fill="transparent" style={{marginTop:"-1px",fill:'#4A90E2'}}/>
-                          </svg>
-                        </div>
-                        <div className="protograph-season">
-                          { value.season_name}
-                        </div>
-                      </div>
-                    </div>
-                  );                  
-                })
-              }
+                    );
+                  })
+                }
+                </div> 
+              </div>
             </div>
           </div>
         </div>
