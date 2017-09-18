@@ -150,7 +150,6 @@ input[type="color"]{
 }
 
 .form-dropdown{
-    -webkit-appearance: none;
     padding: 7px 10px;
     font-size: 1em;
     background: white;
