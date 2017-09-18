@@ -83,11 +83,9 @@ export default class RainfallCard extends React.Component {
     data.card_data.data.years.sort((a,b)=>{
       return a.year-b.year;
     });
-    this.state.dataJSON=data;
-    this.state.currData = data.card_data.data.years[data.card_data.data.years.length-1];
     this.setState({
-      currIndex: data.card_data.data.years.length - 1
-    })
+      dataJSON:data
+    });
   }
   
   renderLaptop() {
@@ -109,14 +107,14 @@ export default class RainfallCard extends React.Component {
       });
       return (
         <div id="protograph-div" style={styles}>
-          <div className="protograph-card" style={{marginLeft:10,width:"640px",overflow:"visible"}}>
+          <div className="protograph-card" style={{letterSpacing:'normal',marginLeft:10,width:"640px",overflow:"visible"}}>
             <div className="protograph-place">{data.data.district}</div>
-            <p style={{margin:'10px',marginTop:'0'}}>Annual Rainfall in {years[this.state.currIndex]['year']}</p>
+            <p style={{margin:'10px',marginTop:'0'}}>Annual Rainfall</p>
             <div className="protograph-annual" style={{width:"320px"}}>
-              <p style={{fontSize:34,fontWeight:'bold'}} className="protograph-annual-average">{this.state.currData.annual_type}</p>
+              <p style={{fontSize:42,fontWeight:'bold'}} className="protograph-annual-average">0{years[this.state.currIndex]['annual_rating']}<span style={{fontSize:30,color:'#C8C8C8'}}>/05</span></p>
               <div className="protograph-annual-value">
-                <span className="protograph-annual-rainfall-value" style={{marginRight:20}}>{this.state.currData.annual} mm </span>
-                <span className="protograph-annual-rainfall-percent" style={{color:this.state.currData.annual_dep_perc < 0 ? 'red' : 'black'}}>{Math.abs(this.state.currData.annual_dep_perc)}% below normal</span>
+                <div className="protograph-annual-rainfall-value" style={{marginRight:20}}>Rainfall recorded in {years[this.state.currIndex]['year']} was <b>{this.state.currData.annual} mm </b></div>
+                <span className="protograph-annual-rainfall-percent" style={{fontWeight:'bold' ,color:this.state.currData.annual_dep_perc < 0 ? '#DC3434' : 'black'}}>{'(' + Math.abs(this.state.currData.annual_dep_perc)}% {this.state.currData.annual_dep_perc > 0 ? 'above' : 'below'} normal)</span>
               </div>
             </div>
             <div className="protograph-values" style={{marginTop:30}}>
@@ -126,19 +124,19 @@ export default class RainfallCard extends React.Component {
                   values.map((value,index)=>{
                     return(
                       <div key={index} style={{width:"120px",textAlign:'center',display:"inline-block"}}>
-                        <div style={{color:'#999',fontSize:12,textAlign:'center'}}>{value.season}</div>
+                        <div style={{color:'#CBCBCB',fontSize:12,textAlign:'center'}}>{value.season}</div>
                         <div style={{height:'40px',textAlign:'center'}}>
                           <img src={"/src/img/"+imgs[index]}/>
                         </div>
                         <div>{value.rainfall}</div>
-                        <div style={{position:'relative',marginLeft:-10,color:value.dep_perc <= 0? 'red' : 'black'}}>{value.dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(value.dep_perc)}%</div>
+                        <div style={{position:'relative',marginLeft:-10,color:value.dep_perc <= 0? '#DC3434' : 'black'}}>{value.dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(value.dep_perc)}%</div>
                       </div>
                     );
                   })
                 }
                 </div>
                 <div style={{float:'right',bottom:0,position:'absolute',right:40,fontSize:12}}>
-                  <div>Rainfall level in mm</div>
+                  <div>Rainfall level (mm)</div>
                   <div>Above/Below normal</div>
                 </div> 
               </div>
@@ -149,13 +147,13 @@ export default class RainfallCard extends React.Component {
                   return(
                     <div key={index} style={{position:'relative',left:0,width:142,margin:0,height:115,borderTop:'1px solid #CCC',zIndex:2,borderRight: index < years.length - 1 ? '1px solid #CCC' : '0px'}} className="protograph-tab">
                       <div style={{marginTop:10}}>
-                        <div style={{color:'#999',fontSize:12,textAlign:'center'}}>{year.year}</div>
+                        <div style={{color:'black',fontWeight:'bold',fontSize:12,textAlign:'center'}}>{year.year}</div>
                         <img src="/src/img/rainfall.png" />
-                        <div>{year.annual}</div>
-                        <div style={{color:year.annual_dep_perc <= 0 ? 'red' : 'black'}}>
+                        <div>{year.annual} mm</div>
+                        <div style={{color:year.annual_dep_perc <= 0 ? '#DC3434' : 'black'}}>
                           {year.annual_dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(year.annual_dep_perc).toFixed(0)}%
                         </div>
-                        <div onClick={(e)=> this.handleClick(e)} style={{height:"100%",width:"100%",position:'absolute',top:0,zIndex:20}} id={index === years.length -1 ?'protograph_color' : 'protograph_inactive'}></div>
+                        <div onClick={(e)=> this.handleClick(e)} style={{height:"100%",width:"100%",position:'absolute',top:0,zIndex:20}} id={index === years.length - 1 ?'protograph_color' : 'protograph_inactive'}></div>
                       </div>
                     </div>
                   );
@@ -174,7 +172,7 @@ export default class RainfallCard extends React.Component {
     } else {
       const data = this.state.dataJSON.card_data;
       let styles = {
-        width : "240px"
+        width : "320px"
       }
       let years=[];
       data.data.years.forEach((datum)=>{
@@ -185,24 +183,31 @@ export default class RainfallCard extends React.Component {
       values = values.filter((value)=>{
         return typeof value.rainfall !== "string" && value.rainfall !== "NA" && value.rainfall !== NaN && value.rainfall !== undefined;
       });
-      let year=years[years.length-1];      
       return (
         <div id="protograph-div" style={styles}>
-          <div className="protograph-card" style={{marginLeft:10,width:"240px",overflow:"visible"}}>
-            <div style={{marginBottom:10,marginLeft:10}}>
-              <div className="protograph-place">{data.data.district}</div>
-              <p style={{margin:'10px',marginTop:'0'}}>Annual Rainfall in {years[this.state.currIndex]['year']}</p>
-              <div className="protograph-annual" style={{width:"240px"}}>
-                <div style={{position:'relative'}}>
-                  <p style={{fontSize:34,fontWeight:'bold'}} className="protograph-annual-average">               {this.state.currData.annual_type}
-                  </p>
-                <img style={{position:'absolute',right:40,top:10}} src="/src/img/rainfall.png" />
-                </div>
-                <div className="protograph-annual-value">
-                  <span className="protograph-annual-rainfall-value" style={{marginRight:20}}>{this.state.currData.annual} mm </span>
-                  <span className="protograph-annual-rainfall-percent" style={{color:this.state.currData.annual_dep_perc < 0 ? 'red' : 'black'}}>{Math.abs(this.state.currData.annual_dep_perc)}% below normal</span>
-                </div>
+          <div className="protograph-card" style={{letterSpacing:'normal',marginLeft:10,width:"320px",overflow:"visible"}}>
+            <div className="protograph-place">{data.data.district}</div>
+            <p style={{margin:'10px',marginTop:'0'}}>Annual Rainfall</p>
+            <div className="protograph-annual" style={{width:"320px"}}>
+              <p style={{fontSize:45,fontWeight:'bold'}} className="protograph-annual-average">0{years[this.state.currIndex]['annual_rating']}<span style={{fontSize:31,color:'#C8C8C8'}}>/05</span></p>
+              <div className="protograph-annual-value">
+                <div className="protograph-annual-rainfall-value" style={{marginRight:20,fontSize:16}}>Rainfall recorded in {years[this.state.currIndex]['year']} was <b>{this.state.currData.annual} mm </b></div>
+                <span className="protograph-annual-rainfall-percent" style={{fontWeight:'bold' ,color:this.state.currData.annual_dep_perc < 0 ? '#DC3434' : 'black',fontSize:16}}>{'(' + Math.abs(this.state.currData.annual_dep_perc)}% {this.state.currData.annual_dep_perc > 0 ? 'above' : 'below'} normal)</span>
               </div>
+            </div>
+            <div style={{marginTop:20}} className="protograph-tabs">
+              {
+                years.map((year,index)=>{
+                  return(
+                    <div key={index} style={{position:'relative',left:0,width:142,margin:0,height:45,borderTop:'1px solid #CCC',zIndex:2,borderRight: index < years.length - 1 ? '1px solid #CCC' : '0px'}} className="protograph-tab">
+                      <div style={{marginTop:10}}>
+                        <div style={{color:'black',fontWeight:'bold',fontSize:14,textAlign:'center'}}>{year.year}</div>
+                        <div onClick={(e)=> this.handleClick(e)} style={{height:"100%",width:"100%",position:'absolute',top:0,zIndex:20}} id={index === years.length - 1 ?'protograph_color' : 'protograph_inactive'}></div>
+                      </div>
+                    </div>
+                  );
+                })
+              }
             </div>
           </div>
         </div>
@@ -236,7 +241,7 @@ export default class RainfallCard extends React.Component {
               <p style={{fontSize:34,fontWeight:'bold'}} className="protograph-annual-average">{this.state.currData.annual_type}</p>
               <div className="protograph-annual-value">
                 <span className="protograph-annual-rainfall-value" style={{marginRight:20}}>{this.state.currData.annual} mm </span>
-                <span className="protograph-annual-rainfall-percent" style={{color:this.state.currData.annual_dep_perc < 0 ? 'red' : 'black'}}>{Math.abs(this.state.currData.annual_dep_perc)}% below normal</span>
+                <span className="protograph-annual-rainfall-percent" style={{color:this.state.currData.annual_dep_perc < 0 ? '#DC3434' : 'black'}}>{Math.abs(this.state.currData.annual_dep_perc)}% below normal</span>
               </div>
             </div>
             <div className="protograph-values" style={{marginTop:30}}>
@@ -246,12 +251,12 @@ export default class RainfallCard extends React.Component {
                   values.map((value,index)=>{
                     return(
                       <div key={index} style={{width:"25%",textAlign:'center',display:"inline-block"}}>
-                        <div style={{color:'#999',fontSize:12,textAlign:'center'}}>{value.season}</div>
+                        <div style={{color:'#CBCBCB',fontSize:12,textAlign:'center'}}>{value.season}</div>
                         <div style={{height:'40px',textAlign:'center'}}>
                           <img src={"/src/img/"+imgs[index]}/>
                         </div>
                         <div>{value.rainfall}</div>
-                        <div style={{position:'relative',marginLeft:-10,color:value.dep_perc <= 0? 'red' : 'black'}}>{value.dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(value.dep_perc)}%</div>
+                        <div style={{position:'relative',marginLeft:-10,color:value.dep_perc <= 0? '#DC3434' : 'black'}}>{value.dep_perc <= 0 ? <i className="caret down icon"></i> : <i className="caret up icon"></i>}{Math.abs(value.dep_perc)}%</div>
                       </div>
                     );
                   })

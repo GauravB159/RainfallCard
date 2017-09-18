@@ -26,6 +26,22 @@
                 "type": "string",
                 "default": "1970"
               },
+              "annual": {
+                "type": "number",
+                "title": "Annual Average Rainfall",
+                "default": 200
+              },
+              "annual_dep_perc": {
+                "type": "number",
+                "title": "Annual Average Percentage Departure",
+                "default": 50
+              },
+              "annual_rating": {
+                "type": "integer",
+                "title": "Annual Rainfall Rating",
+                "default": 3,
+                "enum":[1,2,3,4,5]
+              },
               "seasons": {
                 "title": "Seasons",
                 "id": "/properties/data/properties/questions/items/properties/options",
@@ -61,21 +77,6 @@
                 },
                 "minItems": 1,
                 "type": "array"
-              },
-              "annual": {
-                "type": "number",
-                "title": "Annual Average Rainfall",
-                "default": 200
-              },
-              "annual_dep_perc": {
-                "type": "number",
-                "title": "Annual Average Percentage Departure",
-                "default": 50
-              },
-              "annual_type": {
-                "type": "string",
-                "title": "Annual Rainfall Description",
-                "default": "Average"
               }
             },
             "minItems": 1,
